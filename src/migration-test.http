@@ -1,0 +1,29 @@
+### GET request to example server
+GET https://examples.http-client.intellij.net/get
+    ?generated-in=IntelliJ IDEA
+
+### Start the Tableau Migration Workflow
+POST http://localhost:8080/api/v1/migration/run
+Content-Type: application/json
+
+{
+  "vendor": "tableau",
+  "auth": "google",
+  "db": "postgresvalidator",
+  "os": "win",
+  "biValidator": "tableauvalidator",
+  "uploader": "file"
+}
+
+### Start the PowerBI Migration Workflow
+POST http://localhost:8080/api/v1/migration/run
+Content-Type: application/json
+
+{
+  "vendor": "pbi",
+  "auth": "sso",
+  "db": "mysqlvalidator",
+  "os": "mac",
+  "biValidator": "pbivalidator",
+  "uploader": "folder"
+}
