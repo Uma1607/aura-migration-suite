@@ -9,18 +9,20 @@ import com.aura.rationalisor.Rationalizer;
 import com.aura.validation.BiServerValidator;
 import com.aura.validation.ConnectionValidator;
 import org.springframework.stereotype.Service;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
 
 @Service
+@Slf4j
 public class MigrationServiceImpl implements MigrationService {
 
     private final MigrationStrategyFactory strategyFactory;
+    // Inject a Map of all instead of just one
     private final Map<String, AuthProvider> authProviders;
     private final Map<String, ConnectionValidator> connectionValidators;
     private final Map<String, BiServerValidator> biServerValidators;
     private final Map<String,FolderManager> folderManager;
-    // FIX: Inject a Map of all rationalizers instead of just one
     private final Map<String, Rationalizer> rationalizers;
 
     public MigrationServiceImpl(
@@ -40,10 +42,14 @@ public class MigrationServiceImpl implements MigrationService {
 
     @Override
     public void executeFullWorkflow(MigrationRequest request) {
-        System.out.println("--- Starting Dynamic Workflow for Vendor: " + request.getVendor() + " ---");
+        log.info("--- Starting Dynamic Workflow for Vendor: {} ---", request.getVendor());
 
         // 1. Auth Strategy
-        authProviders.get(request.getAuth().toLowerCase()).authenticate();
+        AuthProvider authProvider = authProviders.get(request.getAuth().toLowerCase());
+        if (authProvider == null) {
+            throw new RuntimeException("Auth provider not found for: " + request.getDb());
+        }
+        authProvider.authenticate();
 
         // 2. DB Connection Strategy
         ConnectionValidator dbValidator = connectionValidators.get(request.getDb().toLowerCase());
@@ -55,14 +61,21 @@ public class MigrationServiceImpl implements MigrationService {
         // 3. BI Server Validation Strategy
         BiServerValidator biServerValidator = biServerValidators.get(request.getBiValidator().toLowerCase());
         if (biServerValidator == null) {
-            throw new RuntimeException("DB Validator not found for: " + request.getDb());
+            throw new RuntimeException("BI Validator not found for: " + request.getDb());
         }
         biServerValidator.validate();
         // 4. OS Utility Strategy
-        folderManager.get(request.getOs().toLowerCase()).createFolders();
+        FolderManager folderManager_ = folderManager.get(request.getOs().toLowerCase());
+        if (folderManager_ == null) {
+            throw new RuntimeException("Folder Support not found for: " + request.getDb());
+        }
+        folderManager_.createFolders();
 
         // 5. Extraction/Transformation Strategy (The Factory)
         Migration strategy = strategyFactory.getStrategy(request.getVendor().toLowerCase());
+        if (strategy == null) {
+            throw new RuntimeException("Strategy not found for: " + request.getDb());
+        }
         strategy.getExtractor().extract();
 
         // 6. Multi-threaded Rationalization (Default or Vendor-Specific)
@@ -74,7 +87,7 @@ public class MigrationServiceImpl implements MigrationService {
 
         strategy.getTransformer().transform();
 
-        System.out.println("--- Workflow Successfully Initiated ---");
+        log.info("--- Workflow Successfully Initiated ---");
     }
 
 }

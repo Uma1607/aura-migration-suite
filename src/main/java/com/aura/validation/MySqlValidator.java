@@ -6,6 +6,5 @@ import org.springframework.stereotype.Component;
 public class MySqlValidator implements ConnectionValidator{
     @Override
     public void validate() {
-
     }
 }

@@ -36,6 +36,7 @@ build/
 .env
 .env.local
 !**/src/main/**/application-local.properties
+!**/src/main/**/resources/application-local.properties
 
 # OS files
 .DS_Store
@@ -51,3 +52,7 @@ jspm_packages/
 
 # Help files
 HELP.md
+
+# Local AI & Database Data
+/data/
+*.json-vector-store

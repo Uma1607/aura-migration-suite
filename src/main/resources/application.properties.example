@@ -1,9 +1,9 @@
 spring.application.name=aura-suite
 
 # Database
-spring.datasource.url=jdbc:postgresql://localhost:5332/auradb
-spring.datasource.username=aura_user
-spring.datasource.password=aura_password
+spring.datasource.url=jdbc:postgresql://localhost:{port}/{database}
+spring.datasource.username={username}
+spring.datasource.password={password}
 spring.datasource.driver-class-name=org.postgresql.Driver
 spring.jpa.hibernate.ddl-auto=update
 #spring.jpa.show-sql=true
@@ -11,7 +11,7 @@ spring.jpa.hibernate.ddl-auto=update
 spring.jpa.open-in-view=false
 
 # AI Config
-spring.ai.ollama.base-url=http://localhost:11434
+spring.ai.ollama.base-url=http://localhost:{port}
 spring.ai.ollama.chat.options.model=llama3.2:1b
 spring.ai.ollama.embedding.options.model=llama3.2:1b
 # TaskExecutor limit

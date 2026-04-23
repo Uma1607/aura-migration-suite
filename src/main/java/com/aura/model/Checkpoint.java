@@ -17,7 +17,6 @@ public class Checkpoint {
     private Long lastProcessedId;
     private LocalDateTime timestamp;
 
-    // Custom constructor for your .orElse() logic
     public Checkpoint(String stepName, Long lastProcessedId, LocalDateTime timestamp) {
         this.stepName = stepName;
         this.lastProcessedId = lastProcessedId;

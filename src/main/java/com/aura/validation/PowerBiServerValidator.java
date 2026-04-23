@@ -6,6 +6,5 @@ import org.springframework.stereotype.Component;
 public class PowerBiServerValidator implements BiServerValidator{
     @Override
     public void validate() {
-
     }
 }

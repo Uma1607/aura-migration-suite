@@ -6,6 +6,5 @@ import org.springframework.stereotype.Service;
 public class TableauTransformer implements Transformer{
     @Override
     public void transform() {
-
     }
 }

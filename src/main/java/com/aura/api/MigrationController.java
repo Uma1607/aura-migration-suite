@@ -2,6 +2,7 @@ package com.aura.api;
 
 import com.aura.api.dto.MigrationRequest;
 import com.aura.core.service.MigrationService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,6 +10,7 @@ import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/api/v1/migration")
+@Slf4j
 public class MigrationController {
     private final MigrationService migrationService;
 
@@ -23,8 +25,7 @@ public class MigrationController {
             try {
                 migrationService.executeFullWorkflow(request);
             } catch (Exception e) {
-                System.err.println("CRITICAL ERROR IN WORKFLOW: " + e.getMessage());
-                e.printStackTrace();
+                log.error("CRITICAL ERROR IN WORKFLOW: {}", e.getMessage());
             }
         });
 

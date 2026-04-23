@@ -6,6 +6,5 @@ import org.springframework.stereotype.Service;
 public class UploadFolderService implements UploadService{
     @Override
     public void upload() {
-
     }
 }
