@@ -1,16 +1,24 @@
 version: '3.8'
+
 services:
   db:
-    image: postgres:15
+    image: postgres:17-alpine
     container_name: aura-postgres
+    restart: always
     environment:
-      POSTGRES_USER: aura_user
-      POSTGRES_PASSWORD: aura_password
-      POSTGRES_DB: auradb
+      # These variables can be set in a .env file in the same directory
+      POSTGRES_USER: ${DB_USER:-aura_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-aura_password}
+      POSTGRES_DB: ${DB_NAME:-auradb}
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-aura_user} -d ${DB_NAME:-auradb}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   postgres_data:

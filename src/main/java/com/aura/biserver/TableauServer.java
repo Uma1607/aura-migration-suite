@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 @Service("tableauServer")
 public class TableauServer implements BiServer{
     @Override
-    public void validate() {
-
+    public void connect() {
     }
 }

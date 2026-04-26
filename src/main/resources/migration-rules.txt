@@ -1,0 +1,7 @@
+RULE 1: Syntax Translation - Replace MS SQL Server style 'SELECT TOP X' with standard PostgreSQL 'SELECT ... LIMIT X' at the end of the query.
+---
+RULE 2: Hint Removal - Completely remove 'NOLOCK' or '(NOLOCK)' hints as they are not supported/needed in PostgreSQL.
+---
+RULE 3: Date Formatting - Ensure all date literals are formatted as 'YYYY-MM-DD' for ISO compliance.
+---
+RULE 4: Integrity - Do not modify any other part of the SQL query. Only apply the specific transformations mentioned in Rules 1, 2, and 3.

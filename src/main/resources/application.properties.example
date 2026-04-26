@@ -1,0 +1,31 @@
+# src/main/resources/application.properties
+
+# --- Database ---
+spring.datasource.url=jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:auradb}
+spring.datasource.username=${DB_USER:aura_user}
+spring.datasource.password=${DB_PASSWORD:aura_password}
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+# --- Hibernate/JPA ---
+spring.jpa.hibernate.ddl-auto=${DB_DDL_AUTO:update}
+spring.jpa.show-sql=${DB_SHOW_SQL:false}
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.properties.hibernate.jdbc.batch_size=${DB_BATCH_SIZE:50}
+spring.jpa.properties.hibernate.order_inserts=true
+spring.jpa.open-in-view=false
+
+# --- Aura System Design ---
+aura.migration.batch-size=${MIGRATION_BATCH_SIZE:1000}
+aura.concurrency.semaphore-limit=${CONCURRENCY_LIMIT:10}
+
+# --- AI Integration (Spring AI) ---
+spring.ai.ollama.base-url=${AI_HOST:http://localhost:11434}
+spring.ai.ollama.chat.options.model=${AI_MODEL:llama3.2:1b}
+spring.ai.ollama.embedding.options.model=${AI_MODEL:llama3.2:1b}
+spring.ai.ollama.chat.options.num-threads=${AI_THREADS:2}
+aura.feature.ai-enabled=${AI_FEATURE_ENABLED:true}
+
+# --- Resiliency4j (Circuit Breaker) ---
+resilience4j.circuitbreaker.instances.aiService.slidingWindowSize=${CB_WINDOW_SIZE:5}
+resilience4j.circuitbreaker.instances.aiService.waitDurationInOpenState=${CB_WAIT_TIME:10s}
+resilience4j.circuitbreaker.configs.default.slow-call-duration-threshold=${CB_SLOW_CALL:60s}

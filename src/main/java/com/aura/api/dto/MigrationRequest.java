@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 public class MigrationRequest {
     private String vendor;      // e.g., "tableau", "pbi"
     private String auth;        // e.g., "google", "sso", "dummy"
-    private String db;          // e.g., "postgres", "mysql"
+    private String db;          // e.g., "postgresvalidator", "mysqlvalidator"
     private String os;          // e.g., "win", "mac"
-    private String biValidator; // e.g., "tableau", "pbi"
+    private String biValidator; // e.g., "tableauvalidator", "pbivalidator"
     private String uploader;    // e.g., "file", "folder"
 }

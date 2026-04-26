@@ -6,6 +6,5 @@ import org.springframework.stereotype.Component;
 public class MacFolder implements FolderManager{
     @Override
     public void createFolders() {
-
     }
 }
