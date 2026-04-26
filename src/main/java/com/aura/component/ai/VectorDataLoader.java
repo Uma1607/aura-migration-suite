@@ -1,6 +1,5 @@
 package com.aura.component.ai;
 
-import com.aura.repository.MigrationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.beans.factory.annotation.Value;
