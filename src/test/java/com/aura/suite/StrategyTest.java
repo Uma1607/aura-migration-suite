@@ -1,7 +1,7 @@
-package com.aura.core.strategy;
+package com.aura.suite;
 
-import com.aura.auth.AuthProvider;
-import com.aura.auth.SsoAuthProvider;
+import com.aura.core.strategy.Migration;
+import com.aura.core.strategy.MigrationStrategyFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

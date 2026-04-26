@@ -1,4 +1,4 @@
-package com.aura.component;
+package com.aura.suite;
 
 import com.aura.api.dto.MigrationRequest;
 import com.aura.core.service.MigrationService;

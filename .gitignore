@@ -56,3 +56,4 @@ HELP.md
 # Local AI & Database Data
 /data/
 *.json-vector-storesrc/main/resources/application.properties
+.env
